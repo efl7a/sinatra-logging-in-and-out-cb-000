@@ -10,25 +10,29 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
+  get '/error' do
+    erb :error
+  end
+
   post '/login' do
-    binding.pry
     if User.find_by(username: params[:username], password: params[:password])
       current_user = User.find_by(username: params[:username], password: params[:password])
       session[:user_id] = current_user.id
       redirect '/account'
     else
-      redirect '/error'
+#      redirect '/error' This is not working so I used erb :error
+      erb :error
     end
   end
 
   get '/account' do
-    if Helpers.is_logged_in?
-      @current_user = Helpers.current_user
+    if Helpers.is_logged_in?(session)
+      @current_user = Helpers.current_user(session)
       erb :account
     else
-      redirect '/error'
+#      redirect '/error' This is not working so I used erb :error
+      erb :error
     end
-
   end
 
   get '/logout' do
@@ -36,9 +40,7 @@ class ApplicationController < Sinatra::Base
     redirect '/'
   end
 
-  get '/error' do
-    erb :error
-  end
+
 
   post '/logout' do
     session.clear

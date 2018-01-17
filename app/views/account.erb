@@ -6,11 +6,12 @@
     <link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css">
   </head>
   <body id="page-top">
-    <h2>Account Balance: <%= @current_user.balance %></h2>
+    <h1>Welcome <%= @current_user.username %></h1>
+    <h3>Your Balance: <%= @current_user.balance %></h3>
 
     <form method="post" action="/logout">
 
-      <input type="submit" value="Log Out" id="logout" />
+      <input type="submit" value="Log Out" id="Log Out" />
     </form>
 
   </body>
